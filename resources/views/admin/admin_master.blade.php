@@ -58,23 +58,23 @@
     <script src="{{asset('js/pages/dashboard.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     <script>
-        @if(Session::has('message'))
-        var type = "{{Session::get('alert-type','info')}}"
+        //  @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
         switch (type) {
             case 'info':
-                toastr.info("{{ Session::get('message') }}");
+                toastr.info(" {{ Session::get('message') }} ");
                 break;
             case 'success':
-                toastr.success("{{ Session::get('message') }}");
+                toastr.success(" {{ Session::get('message') }} ");
                 break;
             case 'warning':
-                toastr.warning("{{ Session::get('message') }}");
+                toastr.warning(" {{ Session::get('message') }} ");
                 break;
             case 'error':
-                toastr.error("{{ Session::get('message') }}");
+                toastr.error(" {{ Session::get('message') }} ");
                 break;
         }
-        @endif
+        // @endif 
 
     </script>
 
