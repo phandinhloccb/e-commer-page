@@ -22,7 +22,7 @@
                                             <div class="form-group">
                                                 <h5>Current Password <span class="text-danger">*</span></h5>
                                                 <div class="controls">
-                                                    <input type="password" id="current_password" name="oldpassword"
+                                                    <input type="password" id="oldpassword" name="oldpassword"
                                                         class="form-control" required="">
                                                 </div>
                                             </div>

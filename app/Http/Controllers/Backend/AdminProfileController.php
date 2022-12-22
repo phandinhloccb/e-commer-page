@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AdminPassEditRequest;
 use Auth;
 
 class AdminProfileController extends Controller
@@ -49,17 +50,14 @@ class AdminProfileController extends Controller
         return view('admin.admin_change_password');
     }
 
-    public function AdminUpdateChangePassword(Request $request)
+    public function AdminUpdateChangePassword(AdminPassEditRequest $request)
     {
-        $validateData = $request->validate([
-            'oldpassword' => 'required',
-            'password' => 'required|confirmed',
-        ]);
+        $validateData = $request->validated();
         $hashedPassword = Admin::find(2)->password;
         if (Hash::check($request->oldpassword, $hashedPassword)) {
             $admin = Admin::find(2);
-            $admin->password = Hash::make($request->password);
-            $admin->save();
+            $admin->password = bcrypt($request->password);
+            $admin->fill($validateData)->save();
             Auth::logout();
             return redirect()->route('admin.logout');
         } else {
