@@ -26,8 +26,8 @@ class AdminPassEditRequest extends FormRequest
     {
         return [
             'oldpassword' => 'required|min:8|max:255',
-            'newpassword' => ['required', new PasswordRule(), 'min:8', 'max:64'],
-            'confirm_password' => ['required', new PasswordRule(), 'min:8', 'max:64', 'same:newpassword'],
+            'password' => ['required', 'min:8', 'max:64'],
+            'password_confirmation' => ['required', 'min:8', 'max:64', 'same:password'],
         ];
     }
 
