@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AdminPassEditRequest;
+use App\Http\Requests\AdminProfileEditRequest;
 use Auth;
 
 class AdminProfileController extends Controller
@@ -24,7 +25,7 @@ class AdminProfileController extends Controller
         return view('admin.admin_profile_edit', compact('editData'));
     }
 
-    public function AdminProfileStore(Request $request)
+    public function AdminProfileStore(AdminProfileEditRequest $request)
     {
         $data = Admin::find(1);
         $data->name = $request->name;
