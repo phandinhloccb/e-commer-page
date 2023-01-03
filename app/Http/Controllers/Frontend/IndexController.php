@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserProfileEditRequest;
+use App\Http\Requests\userPassEditRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class IndexController extends Controller
@@ -48,5 +50,27 @@ class IndexController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('dashboard')->with($notification);
+    }
+
+    public function UserChangePassword()
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        return view('frontend.profile.change_password', compact('user'));
+    }
+
+    public function UserPasswordUpdate(UserPassEditRequest $request)
+    {
+        $request->validated();
+        $hashedPassword = Auth::user()->password;
+        if (Hash::check($request->oldpassword, $hashedPassword)) {
+            $user = User::find(Auth::id());
+            $user->password = Hash::make($request->password);
+            $user->save();
+            Auth::logout();
+            return redirect()->route('user.logout');
+        } else {
+            return redirect()->back();
+        }
     }
 }
