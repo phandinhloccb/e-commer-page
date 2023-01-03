@@ -55,7 +55,6 @@ class AdminProfileController extends Controller
     {
         $request->validated();
         $hashedPassword = Admin::find(1)->password;
-        dd(Hash::make($request->password));
         if (Hash::check($request->oldpassword, $hashedPassword)) {
             $admin = Admin::find(1);
             $admin->password = Hash::make($request->password);
